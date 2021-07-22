@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>El Weather</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/style.css">
+
+    
+  <body>
+
+
+    <section class="hero is-small is-info ">
+      <div class="hero-body">
+        <p class="title is-centered">
+          WeatherSearch
+        </p>
+        <p class="subtitle">
+          Search the Weather in Your Neck of the Woods
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+
+              <div class="columns">
+
+                <div class="column">
+
+                        <div class="field has-addons mt-6">
+                          <div class="control">
+                            <input class="inputValue  input is-medium" type="text" placeholder="Search by City">
+                           
+                          </div>
+                          <div class="control">
+
+                            <a class="button is-info is-medium" id="button" type="submit" value="submit">
+                              Search
+                            </a>
+
+                          </div>
+                        </div>
+
+                </div>
+
+
+
+                <div class="column mt-6">
+
+
+                  <div class="card is-hidden">
+                    <!-- <div class="card-image">
+                      <figure class="image is-4by3">
+                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                      </figure>
+                    </div> -->
+                    <div class="card-content">
+                      <div class="media">
+                        <div class="media-left">
+                          <figure class="image is-48x48">
+                            <div class="weather-icon"><img src="/assets/icons/unknown.png" /></div>
+                          </figure>
+                        </div>
+                        <div class="media-content">
+                          <p class="title is-2" id="cityName"></p>
+                          <p class="subtitle is-4" id="desc"></p>
+                        </div>
+                      </div>
+                 
+                      <div class="content">
+                       
+               
+                        <p class="is-large" id="temp"></p>
+                        <p class="is-large" id="feels-like"></p>
+                        <p class="is-large" id="max-temp"></p>
+                     
+                    
+                        <p class="is-large" id="min-temp"></p>
+                        <p class="is-large" id="wind-speed"></p>
+                     
+
+                        <!-- <a href="#">#css</a> <a href="#">#responsive</a>
+                        <br>
+                        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
+                      </div>
+                         
+                  </div>
+
+
+                       
+                    </div>
+                  </div>
+
+
+
+
+
+
+                </div>
+                <!-- end column -->
+
+
+
+              </div>
+              <!-- end columns -->
+
+
+             
+
+              <div class="columns">
+                <div class="column">
+                  <h4 class="title is-size-3" id="five-day-city"></h4>
+                </div>
+              </div>
+
+      
+
+   
+
+
+  </div>
+  <!-- end container -->
+      
+   
+    <!-- jQuery first, then Popper.js-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="../assets/script.js"></script>
+  
+  </body>
+</html>

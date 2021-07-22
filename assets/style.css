@@ -1,0 +1,18 @@
+
+/* to make up for unique class unrelated to bulma */
+body.inputValue {
+
+    background-color: #fff;
+    border-color: #dbdbdb;
+    border-radius: .375em;
+    color: #363636;
+    font-size: 1.25rem;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+}
