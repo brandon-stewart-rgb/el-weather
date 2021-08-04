@@ -20,7 +20,7 @@
           WeatherSearch
         </p>
         <p class="subtitle">
-          Search the Weather in Your Neck of the Woods
+          Search Weather by City
         </p>
       </div>
     </section>
@@ -29,80 +29,74 @@
 
               <div class="columns">
 
-                <div class="column">
+                <div class="column ">
 
-                        <div class="field has-addons mt-6">
+                        <div class="field has-addons mt-4">
+
                           <div class="control">
-                            <input class="inputValue  input is-medium" type="text" placeholder="Search by City">
-                           
+                            <input class="inputValue  input is-medium" type="text" id="search-input" placeholder="Search by City">                     
                           </div>
-                          <div class="control">
 
-                            <a class="button is-info is-medium" id="button" type="submit" value="submit">
+                          <div class="control">
+                            <a class="button is-info is-medium" id="button" type="button" value="submit">
                               Search
                             </a>
-
                           </div>
+
                         </div>
 
+
+                       
+                        <div class="buttons is-hidden">
+                          <p class="is-size-5 "> Your Recent Searches <em class="is-size-6">(click to search again)</em></p>
+                          
+                        </div>
+
+
+
+
                 </div>
+                <!-- column -->
 
 
 
                 <div class="column mt-6">
 
-
                   <div class="card is-hidden">
-                    <!-- <div class="card-image">
-                      <figure class="image is-4by3">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                      </figure>
-                    </div> -->
-                    <div class="card-content">
-                      <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-48x48">
-                            <div class="weather-icon"><img src="/assets/icons/unknown.png" /></div>
-                          </figure>
+                   
+                    <div class="card-content mb-6">
+                        <div class="media">
+                          <div class="media-left">
+                            <figure class="image is-48x48">
+                              <div class="weather-icon"><img src="/assets/icons/unknown.png" /></div>
+                            </figure>
+                          </div>
+
+                          <div class="content">
+                            <p class="title is-2" id="cityName"></p>
+                            <p class="subtitle is-4" id="desc"></p>
                         </div>
-                        <div class="media-content">
-                          <p class="title is-2" id="cityName"></p>
-                          <p class="subtitle is-4" id="desc"></p>
-                        </div>
-                      </div>
+
+                     </div>
                  
                       <div class="content">
-                       
-               
-                        <p class="is-large" id="temp"></p>
-                        <p class="is-large" id="feels-like"></p>
-                        <p class="is-large" id="max-temp"></p>
-                     
-                    
-                        <p class="is-large" id="min-temp"></p>
-                        <p class="is-large" id="wind-speed"></p>
-                     
-
-                       
-                      </div>
+                                     
+                        <p class="is-large mb-0" id="temp"></p>
+                        <p class="is-large mb-0"" id="feels-like"></p>
+                        <p class="is-large mb-0"" id="max-temp"></p>
+                        <p class="is-large mb-0"" id="min-temp"></p>
+                        <p class="is-large mb-0"" id="wind-speed"></p>
+                                         
+                    </div>
                          
                   </div>
-
-
                        
                     </div>
                   </div>
 
 
-
-
-
-
                 </div>
                 <!-- end column -->
-
-
-
               </div>
               <!-- end columns -->
 
@@ -112,13 +106,7 @@
               <div id="sevenDay" class="columns forecast">    
               </div>
 
-
-
-
-              
-      
-
-   
+ 
 
 
   </div>

@@ -20,3 +20,7 @@ body.inputValue {
 body .is-horizontal-center {
     justify-content: center;
   }
+
+body p strong {
+    color: #5c5b5b !important;
+} 

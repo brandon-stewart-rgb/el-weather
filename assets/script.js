@@ -4,7 +4,7 @@
 
 var button = document.getElementById('button');
 // targets all of the classes in the input element!
-var inputValue = document.querySelector('.inputValue, .input, is-medium');
+var inputValue = document.querySelector('.inputValue, .input, .is-medium');
 var cityName = document.querySelector('#cityName');
 var desc = document.querySelector('#desc');
 var temp = document.querySelector('#temp');
@@ -18,14 +18,14 @@ var fiveDayCity = document.querySelector('#five-day-city');
 
 var fiveDayIcon = document.querySelector('.five-day-icon')
 
+var previousSearch = document.querySelector('#previous-search');
+
 
 
 
 button.addEventListener('click',function(){
 
-
-  
-    fetch('https://api.openweathermap.org/data/2.5/weather?q='+inputValue.value+'&units=imperial&appid=739711a5a24c9b8e40f69bb8be0bd03b' )
+    fetch('https://api.openweathermap.org/data/2.5/weather?q='+inputValue.value+'&units=imperial&appid=739711a5a24c9b8e40f69bb8be0bd03b')
 
     // promise
     .then(response => response.json())
@@ -43,24 +43,15 @@ button.addEventListener('click',function(){
         var windSpeedValue = Math.round(data['wind']['speed'])
 
         const {icon} = data.weather[0];
-
-
-        // weather icon
+     
         locationIcon.innerHTML = `<img src="/assets/icons/${icon}.png">`
-        // city
         cityName.innerHTML = nameValue;
-        // description
-        desc.innerHTML = "Currently condition is:  <strong>" + descValue + "</strong>.";
-        // temperature 
-        temp.innerHTML = "Current Temperature: <strong>" +  tempValue + "</strong>°<small>F</small>";
-        // feels like
-        feelsLike.innerHTML = "Feels Like: <strong>" + feelsLikeValue + "</strong>°<small>F</small>";
-        // feels like
-        tempMax.innerHTML = "Max Temp: <strong>" + tempMaxValue + "</strong>°<small>F</small>";
-        // feels like
-        tempMin.innerHTML = "Min Temp: <strong>" + tempMinValue + "</strong>°<small>F</small>";
-        // feels like
-        windSpeed.innerHTML = "Wind Speed: <strong>" + windSpeedValue + "mph</strong>";
+        desc.innerHTML = "Current conditions:  <strong>" +descValue+ "</strong>.";
+        temp.innerHTML = "Current Temperature: <strong>" +tempValue+ "</strong><sup>°F</sup>";
+        feelsLike.innerHTML = "Feels Like: <strong>" +feelsLikeValue+ "</strong><sup>°F</sup>";
+        tempMax.innerHTML = "Max Temp: <strong>" +tempMaxValue+ "</strong><sup>°F</sup>";
+        tempMin.innerHTML = "Min Temp: <strong>" +tempMinValue+ "</strong><sup>°F</sup>";
+        windSpeed.innerHTML = "Wind Speed: <strong>" +windSpeedValue+ "mph</strong>";
 
     })
 
@@ -90,7 +81,7 @@ button.addEventListener('click',function(){
           if(index > 0) {
             // convert time and convert date to day
             var dayName = new Date(value.dt * 1000).toLocaleDateString("en" ,{
-              weekday: "short"// shortens day of week to three letters
+              weekday: "long"// shortens day of week to three letters
             });
 
             var icon = value.weather[0].icon;
@@ -99,33 +90,36 @@ button.addEventListener('click',function(){
            
             forecastDay = 
             
-            `<div class="forecast-day column has-text-centered">
-                <div class="is-flex is-horizontal-center">
+            `<div class="forecast-day column has-text-centered ">
+                <div class="is-flex is-horizontal-center is-1 box ">
                    <figure class="image is-48x48">
                           <div class="five-day-icon"><img src="/assets/icons/${icon}.png" /></div>
                    </figure>
                 </div>
-						    <div class="is-size-5">${temp}<sup>°F</sup></div>
-                        <p>${dayName}</p>
+						    <div class="is-size-6">${temp}<sup>°F</sup></div>
+                  <p><strong >${dayName}</strong></p>
 					   </div>`;
-             
-            
+              
             // inserts nodes into DOM tree at specified position
-					forecastEl[0].insertAdjacentHTML('beforeend', forecastDay);
-         
-
-          
+					forecastEl[0].insertAdjacentHTML('beforeend', forecastDay);    
          
           }
         });
  
-        
-
 
           // using RegEx to convert first letter of each word to uppercase
           var fiveDayCityValue = inputValue.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
           fiveDayCity.innerHTML = "Seven day forecast for <strong>" +fiveDayCityValue+ "</strong>";
+   
+          // add previous searches
+          var searchEl = document.querySelector(".buttons");
+          var previousSearch = "";
+          previousSearch = `<button class="button is-info is-small is-fullwidth is-outlined" id="saved-button" onclick='saved(this.value);'  value="${fiveDayCityValue}" >${fiveDayCityValue}</button>`
+          searchEl.insertAdjacentHTML('beforeend', previousSearch);
+          removeDuplicate();
           
+        
+
            
          });
 
@@ -134,29 +128,66 @@ button.addEventListener('click',function(){
             if (el.classList.contains("is-hidden")) {
             el.classList.remove("is-hidden");
       }
+
+
+      const btn = document.querySelector('.buttons');
+      if (btn.classList.contains("is-hidden")) {
+      btn.classList.remove("is-hidden");
+      }
+
+      
         
      }); 
+
+
+     // pause for 2.5 seconds then clear search input. bam.
+     function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    sleep(2500).then(() => { submitForm(); });
+
+
+
+     
 
 });
 
 
 
-
+// function to clear seven day div to keep from stacking multiple forecasts on top of each other
 function clearBox(sevenDay) {
-  var div = document.getElementById("sevenDay");
-    
+  var div = document.getElementById("sevenDay"); 
   while(div.firstChild) {
       div.removeChild(div.firstChild);
   }
+};
+
+
+// clear search form function
+function submitForm() {
+  $('input[type="text"]').val('');
+};
+
+
+// function is placed within recent search buttons
+function saved(val){
+  // places value of button into search input
+  document.getElementById('search-input').value = val;  
+  // clicks button of search input to perform a search
+  document.getElementById('button').click();
+};
+
+
+// keeps buttons from piling up as duplicate searches
+function removeDuplicate() {
+
+    const st = new Set();
+    for (const button of document.querySelectorAll('#saved-button')) {
+        if (st.has(button.textContent.trim())) {
+            button.parentNode.removeChild(button);
+        }
+        st.add(button.textContent.trim());
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
