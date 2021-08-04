@@ -20,10 +20,16 @@ var fiveDayIcon = document.querySelector('.five-day-icon')
 
 var previousSearch = document.querySelector('#previous-search');
 
+var previousSearch = {};
 
 
+button.addEventListener('click',function(e){
 
-button.addEventListener('click',function(){
+    e.preventDefault();
+    // ignore input if empty
+    if(inputValue.value.length < 1) return;
+
+
 
     fetch('https://api.openweathermap.org/data/2.5/weather?q='+inputValue.value+'&units=imperial&appid=739711a5a24c9b8e40f69bb8be0bd03b')
 
@@ -31,19 +37,15 @@ button.addEventListener('click',function(){
     .then(response => response.json())
     // .then(data => console.log(data))
     .then(data=> {
-
-  			// current temperature
         var nameValue = data['name']
         var tempValue = Math.round(data['main']['temp'])
         var feelsLikeValue = Math.round(data['main']['feels_like'])
-        // data weather and the 0 object
         var descValue = data['weather']['0']['description'] 
         var tempMaxValue = Math.round(data['main']['temp_max'])
         var tempMinValue = Math.round(data['main']['temp_min'])
         var windSpeedValue = Math.round(data['wind']['speed'])
-
         const {icon} = data.weather[0];
-     
+
         locationIcon.innerHTML = `<img src="/assets/icons/${icon}.png">`
         cityName.innerHTML = nameValue;
         desc.innerHTML = "Current conditions:  <strong>" +descValue+ "</strong>.";
@@ -52,7 +54,6 @@ button.addEventListener('click',function(){
         tempMax.innerHTML = "Max Temp: <strong>" +tempMaxValue+ "</strong><sup>°F</sup>";
         tempMin.innerHTML = "Min Temp: <strong>" +tempMinValue+ "</strong><sup>°F</sup>";
         windSpeed.innerHTML = "Wind Speed: <strong>" +windSpeedValue+ "mph</strong>";
-
     })
 
         
@@ -69,40 +70,38 @@ button.addEventListener('click',function(){
 
        .then(responses => responses.json())
        .then(data=> {
+
         var forecastEl = document.getElementsByClassName("forecast");
-        // var sevenDay = document.getElementById('seven-day')
-        // sevenDay.innerHTML = "";
         // empty string
         var forecastDay = "";
         // clears out previous search contents of #sevenDay
         clearBox();
-       
+        // loops over days and for each creates the following HTML along with correct icons, days and temp
         data.daily.forEach((value,index) => {
           if(index > 0) {
             // convert time and convert date to day
             var dayName = new Date(value.dt * 1000).toLocaleDateString("en" ,{
-              weekday: "long"// shortens day of week to three letters
+              weekday: "long"// shows full word for day of week
             });
 
             var icon = value.weather[0].icon;
             var temp = value.temp.day.toFixed(0);
 
-           
             forecastDay = 
             
             `<div class="forecast-day column has-text-centered ">
                 <div class="is-flex is-horizontal-center is-1 box ">
                    <figure class="image is-48x48">
-                          <div class="five-day-icon"><img src="/assets/icons/${icon}.png" /></div>
+                      <div class="five-day-icon"><img src="/assets/icons/${icon}.png" /></div>
                    </figure>
                 </div>
 						    <div class="is-size-6">${temp}<sup>°F</sup></div>
-                  <p><strong >${dayName}</strong></p>
+                <p><strong >${dayName}</strong></p>
 					   </div>`;
               
             // inserts nodes into DOM tree at specified position
 					forecastEl[0].insertAdjacentHTML('beforeend', forecastDay);    
-         
+  
           }
         });
  
@@ -110,49 +109,77 @@ button.addEventListener('click',function(){
           // using RegEx to convert first letter of each word to uppercase
           var fiveDayCityValue = inputValue.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
           fiveDayCity.innerHTML = "Seven day forecast for <strong>" +fiveDayCityValue+ "</strong>";
+
+
+              var sequence = randoSequence(30001, 79999);
+              var currentIndex = 0;
+              function getNewID(){
+              return + sequence[currentIndex++];
+              }
+
    
           // add previous searches
           var searchEl = document.querySelector(".buttons");
-          var previousSearch = "";
-          previousSearch = `<button class="button is-info is-small is-fullwidth is-outlined" id="saved-button" onclick='saved(this.value);'  value="${fiveDayCityValue}" >${fiveDayCityValue}</button>`
+          
+          previousSearch = `<button class="button is-info is-small is-fullwidth is-outlined" id="saved-button" onclick='saved(this.value);' data-id="${getNewID()}"  value="${fiveDayCityValue}" >${fiveDayCityValue}</button>`
           searchEl.insertAdjacentHTML('beforeend', previousSearch);
+          // removes any duplicate searches
           removeDuplicate();
+
+
+            let previousSearchSerialized = JSON.stringify(previousSearch);
+
+            localStorage.setItem("savedSearches", previousSearchSerialized)
+            console.log(localStorage)
+            
+          
+           let previousSearchDeserialized = JSON.parse(localStorage.getItem('savedSearches'))
+             
+           console.log(previousSearchDeserialized);
+            
+          
+          
+           // If there are any saved items, update our list
+          //  if (!previousSearchDeserialized) {
+          //   searchEl.insertAdjacentHTML('beforeend', previousSearchDeserialized) ;
+          // };
+      
           
         
+          
+
+         
+  
+          
+
+
+
 
            
          });
 
+        // removes hidden classes on click
+        const el = document.querySelector('.card');
+          if (el.classList.contains("is-hidden")) {
+          el.classList.remove("is-hidden");
+        }
 
-       const el = document.querySelector('.card');
-            if (el.classList.contains("is-hidden")) {
-            el.classList.remove("is-hidden");
-      }
-
-
-      const btn = document.querySelector('.buttons');
-      if (btn.classList.contains("is-hidden")) {
-      btn.classList.remove("is-hidden");
-      }
+        const btn = document.querySelector('.buttons');
+          if (btn.classList.contains("is-hidden")) {
+          btn.classList.remove("is-hidden");
+        }
 
       
         
      }); 
 
-
-     // pause for 2.5 seconds then clear search input. bam.
-     function sleep(ms) {
+    // pause for 2.5 seconds then clear search input. bam.
+    function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    
-    sleep(2500).then(() => { submitForm(); });
-
-
-
-     
+    } 
+    sleep(2500).then(() => { submitForm(); });        
 
 });
-
 
 
 // function to clear seven day div to keep from stacking multiple forecasts on top of each other
@@ -163,12 +190,10 @@ function clearBox(sevenDay) {
   }
 };
 
-
 // clear search form function
 function submitForm() {
   $('input[type="text"]').val('');
 };
-
 
 // function is placed within recent search buttons
 function saved(val){
@@ -178,10 +203,8 @@ function saved(val){
   document.getElementById('button').click();
 };
 
-
 // keeps buttons from piling up as duplicate searches
 function removeDuplicate() {
-
     const st = new Set();
     for (const button of document.querySelectorAll('#saved-button')) {
         if (st.has(button.textContent.trim())) {
@@ -189,5 +212,19 @@ function removeDuplicate() {
         }
         st.add(button.textContent.trim());
     }
+};
 
-}
+
+// make search enter responsive
+var input = document.getElementById("search-input");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("button").click();
+  }
+});
+
+
+
+
+
