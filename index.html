@@ -9,61 +9,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../assets/style.css">
-    <script src="https://randojs.com/1.0.0.js"></script>
+    
     
   <body>
 
 
     <section class="hero is-small is-info ">
       <div class="hero-body">
-        <p class="title is-centered">
-          WeatherSearch
-        </p>
-        <p class="subtitle">
-          Search Weather by City
-        </p>
+          <p class="title is-centered">
+            WeatherSearch
+          </p>
+          <p class="subtitle">
+            Search the World's Weather by City
+          </p>
       </div>
     </section>
 
-    <div class="container is-fluid">
+    <div class="container  is-max-desktop pr-3 pl-3 ">
 
               <div class="columns">
 
-                <div class="column ">
+                <div class="column">
 
                         <div class="field has-addons mt-4">
 
                           <div class="control">
-                            <input class="inputValue  input is-medium" type="text" id="search-input" placeholder="Search Weather by City">                     
+                            <input class="inputValue  input is-normal " type="text" id="search-input" placeholder="Search Weather by City">                     
                           </div>
 
                           <div class="control">
-                            <a class="button is-info is-medium" id="button" type="button" value="submit">
+                            <a class="button is-info is-normal" id="button" type="button" value="submit">
                               <i class="fas fa-search"></i>
                             </a>
+
+                            <a class="clear-btn button is-small  ml-2 is-outlined is-hidden">Clear Searches</a>
                           </div>
 
                         </div>
 
-
                        
-                        <div class="buttons is-hidden">
-                          <p class="is-size-5"> Your Recent Searches <em class="is-size-6">(click to search again)</em></p>
-                          
-                        </div>
-
-
+                        <div class="buttons"></div>
 
 
                 </div>
                 <!-- column -->
 
-
-
                 <div class="column mt-6">
-
                   <div class="card is-hidden">
-                   
                     <div class="card-content mb-6">
                         <div class="media">
                           <div class="media-left">
@@ -71,16 +63,13 @@
                               <div class="weather-icon"><img src="/assets/icons/unknown.png" /></div>
                             </figure>
                           </div>
-
                           <div class="content">
                             <p class="title is-2" id="cityName"></p>
                             <p class="subtitle is-4" id="desc"></p>
                         </div>
-
                      </div>
                  
                       <div class="content">
-                                     
                         <p class="is-large mb-0" id="temp"></p>
                         <p class="is-large mb-0"" id="feels-like"></p>
                         <p class="is-large mb-0"" id="max-temp"></p>
@@ -97,16 +86,22 @@
 
                 </div>
                 <!-- end column -->
+
+
+                <h4 class="title is-size-4 " id="five-day-city"></h4>
+                <div id="sevenDay" class="columns forecast">  
+                  
               </div>
               <!-- end columns -->
 
 
              
-              <h4 class="title is-size-3 ml-6" id="five-day-city"></h4>
-              <div id="sevenDay" class="columns forecast">    
-              </div>
+             
+                
+                
 
- 
+                
+             </div>
 
 
   </div>

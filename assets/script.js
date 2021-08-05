@@ -1,7 +1,3 @@
-
-// https://bithacker.dev/fetch-weather-openweathermap-api-javascript
-
-
 var button = document.getElementById('button');
 // targets all of the classes in the input element!
 var inputValue = document.querySelector('.inputValue, .input, .is-medium');
@@ -15,21 +11,17 @@ var tempMin = document.querySelector('#min-temp');
 var windSpeed = document.querySelector('#wind-speed');
 let locationIcon = document.querySelector('.weather-icon');
 var fiveDayCity = document.querySelector('#five-day-city');
-
 var fiveDayIcon = document.querySelector('.five-day-icon')
+var previousSearch = document.querySelector(".buttons");
 
-var previousSearch = document.querySelector('#previous-search');
 
-var previousSearch = {};
+
 
 
 button.addEventListener('click',function(e){
-
     e.preventDefault();
     // ignore input if empty
     if(inputValue.value.length < 1) return;
-
-
 
     fetch('https://api.openweathermap.org/data/2.5/weather?q='+inputValue.value+'&units=imperial&appid=739711a5a24c9b8e40f69bb8be0bd03b')
 
@@ -45,7 +37,6 @@ button.addEventListener('click',function(e){
         var tempMinValue = Math.round(data['main']['temp_min'])
         var windSpeedValue = Math.round(data['wind']['speed'])
         const {icon} = data.weather[0];
-
         locationIcon.innerHTML = `<img src="/assets/icons/${icon}.png">`
         cityName.innerHTML = nameValue;
         desc.innerHTML = "Current conditions:  <strong>" +descValue+ "</strong>.";
@@ -54,7 +45,19 @@ button.addEventListener('click',function(e){
         tempMax.innerHTML = "Max Temp: <strong>" +tempMaxValue+ "</strong><sup>°F</sup>";
         tempMin.innerHTML = "Min Temp: <strong>" +tempMinValue+ "</strong><sup>°F</sup>";
         windSpeed.innerHTML = "Wind Speed: <strong>" +windSpeedValue+ "mph</strong>";
-    })
+
+        // using RegEx to convert first letter of each word to uppercase
+        var searchValue = inputValue.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+
+        // create a button
+        previousSearch.innerHTML += 
+        `<button class="button is-medium is-info" id="saved-button" onclick='saves(this.value);' value="${searchValue}"> ${searchValue}</button>`
+        removeDuplicate();
+
+        // Save the searches to localStorage
+        localStorage.setItem('savedButtons', previousSearch.innerHTML);
+  
+    });
 
         
     // get latitude and longitude from current input value
@@ -65,7 +68,6 @@ button.addEventListener('click',function(e){
       var latitudeValue = data['data']['0']['latitude']
       var longitudeValue = data['data']['0']['longitude']
       
-
        fetch ('https://api.openweathermap.org/data/2.5/onecall?lat=' +latitudeValue+ '&lon=' +longitudeValue+ '&units=imperial&exclude=hourly,minutely,alerts&appid=e663d07dec9b8f87ac31936c9b8c2907')
 
        .then(responses => responses.json())
@@ -78,84 +80,32 @@ button.addEventListener('click',function(e){
         clearBox();
         // loops over days and for each creates the following HTML along with correct icons, days and temp
         data.daily.forEach((value,index) => {
-          if(index > 0) {
-            // convert time and convert date to day
-            var dayName = new Date(value.dt * 1000).toLocaleDateString("en" ,{
-              weekday: "long"// shows full word for day of week
-            });
+            if(index > 0) {
+              // convert time and convert date to day
+              var dayName = new Date(value.dt * 1000).toLocaleDateString("en" ,{
+                weekday: "long"// shows full word for day of week
+              });
 
-            var icon = value.weather[0].icon;
-            var temp = value.temp.day.toFixed(0);
+              var icon = value.weather[0].icon;
+              var temp = value.temp.day.toFixed(0);
 
-            forecastDay = 
-            
-            `<div class="forecast-day column has-text-centered ">
-                <div class="is-flex is-horizontal-center is-1 box ">
-                   <figure class="image is-48x48">
-                      <div class="five-day-icon"><img src="/assets/icons/${icon}.png" /></div>
-                   </figure>
-                </div>
-						    <div class="is-size-6">${temp}<sup>°F</sup></div>
-                <p><strong >${dayName}</strong></p>
-					   </div>`;
-              
+              forecastDay = 
+              `<div class="forecast-day column has-text-centered ">
+                  <div class="is-flex is-horizontal-center is-1 box ">
+                    <figure class="image is-48x48">
+                        <div class="five-day-icon"><img src="/assets/icons/${icon}.png" /></div>
+                    </figure>
+                  </div>
+                  <div class="is-size-6">${temp}<sup>°F</sup></div>
+                  <p><strong >${dayName}</strong></p>
+              </div>`;    
             // inserts nodes into DOM tree at specified position
-					forecastEl[0].insertAdjacentHTML('beforeend', forecastDay);    
-  
-          }
+            forecastEl[0].insertAdjacentHTML('beforeend', forecastDay);    
+            }
         });
- 
-
           // using RegEx to convert first letter of each word to uppercase
           var fiveDayCityValue = inputValue.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
           fiveDayCity.innerHTML = "Seven day forecast for <strong>" +fiveDayCityValue+ "</strong>";
-
-
-              var sequence = randoSequence(30001, 79999);
-              var currentIndex = 0;
-              function getNewID(){
-              return + sequence[currentIndex++];
-              }
-
-   
-          // add previous searches
-          var searchEl = document.querySelector(".buttons");
-          
-          previousSearch = `<button class="button is-info is-small is-fullwidth is-outlined" id="saved-button" onclick='saved(this.value);' data-id="${getNewID()}"  value="${fiveDayCityValue}" >${fiveDayCityValue}</button>`
-          searchEl.insertAdjacentHTML('beforeend', previousSearch);
-          // removes any duplicate searches
-          removeDuplicate();
-
-
-            let previousSearchSerialized = JSON.stringify(previousSearch);
-
-            localStorage.setItem("savedSearches", previousSearchSerialized)
-            console.log(localStorage)
-            
-          
-           let previousSearchDeserialized = JSON.parse(localStorage.getItem('savedSearches'))
-             
-           console.log(previousSearchDeserialized);
-            
-          
-          
-           // If there are any saved items, update our list
-          //  if (!previousSearchDeserialized) {
-          //   searchEl.insertAdjacentHTML('beforeend', previousSearchDeserialized) ;
-          // };
-      
-          
-        
-          
-
-         
-  
-          
-
-
-
-
-           
          });
 
         // removes hidden classes on click
@@ -163,24 +113,19 @@ button.addEventListener('click',function(e){
           if (el.classList.contains("is-hidden")) {
           el.classList.remove("is-hidden");
         }
-
-        const btn = document.querySelector('.buttons');
-          if (btn.classList.contains("is-hidden")) {
-          btn.classList.remove("is-hidden");
+        const clearButton = document.querySelector('.clear-btn');
+          if (clearButton.classList.contains("is-hidden")) {
+            clearButton.classList.remove("is-hidden");
         }
-
-      
-        
+           
      }); 
 
-    // pause for 2.5 seconds then clear search input. bam.
+    // pause for 2.2 seconds then clear search input. bam.
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     } 
-    sleep(2500).then(() => { submitForm(); });        
-
+    sleep(2200).then(() => { submitForm(); });        
 });
-
 
 // function to clear seven day div to keep from stacking multiple forecasts on top of each other
 function clearBox(sevenDay) {
@@ -196,7 +141,7 @@ function submitForm() {
 };
 
 // function is placed within recent search buttons
-function saved(val){
+function saves(val){
   // places value of button into search input
   document.getElementById('search-input').value = val;  
   // clicks button of search input to perform a search
@@ -205,15 +150,14 @@ function saved(val){
 
 // keeps buttons from piling up as duplicate searches
 function removeDuplicate() {
-    const st = new Set();
+    const buttonBlocks = new Set();
     for (const button of document.querySelectorAll('#saved-button')) {
-        if (st.has(button.textContent.trim())) {
+        if (buttonBlocks.has(button.textContent.trim())) {
             button.parentNode.removeChild(button);
         }
-        st.add(button.textContent.trim());
+        buttonBlocks.add(button.textContent.trim());
     }
 };
-
 
 // make search enter responsive
 var input = document.getElementById("search-input");
@@ -225,6 +169,18 @@ input.addEventListener("keyup", function(event) {
 });
 
 
+ // Check for saved button items
+ var saved = localStorage.getItem('savedButtons');
+ // If there are any saved items, update our all the buttons
+ if (saved) {
+  previousSearch.innerHTML = saved;
+ }
+
+ // clear the local storage localStorage.clear(); via button to clear the calendar and reload the page location.reload()
+ $(".clear-btn").on("click", function(){
+  localStorage.clear();
+  location.reload();
+});
 
 
 
