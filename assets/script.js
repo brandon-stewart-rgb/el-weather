@@ -31,7 +31,7 @@ button.addEventListener('click',function(e){
         var tempMinValue = Math.round(data['main']['temp_min'])
         var windSpeedValue = Math.round(data['wind']['speed'])
         const {icon} = data.weather[0];
-        locationIcon.innerHTML = `<img src="/assets/icons/${icon}.png">`
+        locationIcon.innerHTML = `<img src="./assets/icons/${icon}.png">`
         cityName.innerHTML = nameValue;
         desc.innerHTML = "Current conditions:  <strong>" +descValue+ "</strong>.";
         temp.innerHTML = "Current Temperature: <strong>" +tempValue+ "</strong><sup>°F</sup>";
@@ -86,7 +86,7 @@ button.addEventListener('click',function(e){
               `<div class="forecast-day column has-text-centered ">
                   <div class="is-flex is-horizontal-center is-1 box ">
                     <figure class="image is-48x48">
-                        <div class="five-day-icon"><img src="/assets/icons/${icon}.png" /></div>
+                        <div class="five-day-icon"><img src="./assets/icons/${icon}.png" /></div>
                     </figure>
                   </div>
                   <div class="is-size-6">${temp}<sup>°F</sup></div>
