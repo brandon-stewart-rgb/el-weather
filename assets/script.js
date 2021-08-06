@@ -16,8 +16,6 @@ var previousSearch = document.querySelector(".buttons");
 
 
 
-
-
 button.addEventListener('click',function(e){
     e.preventDefault();
     // ignore input if empty
