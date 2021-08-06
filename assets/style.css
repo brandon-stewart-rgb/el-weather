@@ -1,7 +1,6 @@
 
 /* to make up for unique class unrelated to bulma */
 body.inputValue {
-
     background-color: #fff;
     border-color: #dbdbdb;
     border-radius: .375em;
@@ -16,11 +15,9 @@ body.inputValue {
     text-indent: 0px;
     text-shadow: none;
 }
-
 body .is-horizontal-center {
     justify-content: center;
-  }
-
+}
 body p strong {
     color: #5c5b5b !important;
 } 

@@ -14,18 +14,14 @@ var fiveDayCity = document.querySelector('#five-day-city');
 var fiveDayIcon = document.querySelector('.five-day-icon')
 var previousSearch = document.querySelector(".buttons");
 
-
-
 button.addEventListener('click',function(e){
     e.preventDefault();
     // ignore input if empty
     if(inputValue.value.length < 1) return;
 
     fetch('https://api.openweathermap.org/data/2.5/weather?q='+inputValue.value+'&units=imperial&appid=739711a5a24c9b8e40f69bb8be0bd03b')
-
-    // promise
+   
     .then(response => response.json())
-    // .then(data => console.log(data))
     .then(data=> {
         var nameValue = data['name']
         var tempValue = Math.round(data['main']['temp'])
@@ -42,7 +38,7 @@ button.addEventListener('click',function(e){
         feelsLike.innerHTML = "Feels Like: <strong>" +feelsLikeValue+ "</strong><sup>°F</sup>";
         tempMax.innerHTML = "Max Temp: <strong>" +tempMaxValue+ "</strong><sup>°F</sup>";
         tempMin.innerHTML = "Min Temp: <strong>" +tempMinValue+ "</strong><sup>°F</sup>";
-        windSpeed.innerHTML = "Wind Speed: <strong>" +windSpeedValue+ "mph</strong>";
+        windSpeed.innerHTML = "Wind Speed: <strong>" +windSpeedValue+ "mph</strong>"; 
 
         // using RegEx to convert first letter of each word to uppercase
         var searchValue = inputValue.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
@@ -83,7 +79,6 @@ button.addEventListener('click',function(e){
               var dayName = new Date(value.dt * 1000).toLocaleDateString("en" ,{
                 weekday: "long"// shows full word for day of week
               });
-
               var icon = value.weather[0].icon;
               var temp = value.temp.day.toFixed(0);
 
@@ -101,10 +96,12 @@ button.addEventListener('click',function(e){
             forecastEl[0].insertAdjacentHTML('beforeend', forecastDay);    
             }
         });
-          // using RegEx to convert first letter of each word to uppercase
-          var fiveDayCityValue = inputValue.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
-          fiveDayCity.innerHTML = "Seven day forecast for <strong>" +fiveDayCityValue+ "</strong>";
-         });
+
+        // using RegEx to convert first letter of each word to uppercase
+        var fiveDayCityValue = inputValue.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+        fiveDayCity.innerHTML = "Seven day forecast for <strong>" +fiveDayCityValue+ "</strong>";
+
+        });
 
         // removes hidden classes on click
         const el = document.querySelector('.card');
@@ -113,7 +110,7 @@ button.addEventListener('click',function(e){
         }
         const clearButton = document.querySelector('.clear-btn');
           if (clearButton.classList.contains("is-hidden")) {
-            clearButton.classList.remove("is-hidden");
+          clearButton.classList.remove("is-hidden");
         }
            
      }); 
@@ -172,13 +169,10 @@ input.addEventListener("keyup", function(event) {
  // If there are any saved items, update our all the buttons
  if (saved) {
   previousSearch.innerHTML = saved;
- }
+};
 
- // clear the local storage localStorage.clear(); via button to clear the calendar and reload the page location.reload()
- $(".clear-btn").on("click", function(){
+// clear the local storage localStorage.clear(); via button to clear the calendar and reload the page location.reload()
+$(".clear-btn").on("click", function(){
   localStorage.clear();
   location.reload();
 });
-
-
-
