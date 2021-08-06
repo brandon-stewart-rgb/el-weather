@@ -29,5 +29,5 @@ A simple app to search weather by city using Open Weather API for weather, Posit
 
 
 #### Screenshot
-![Example screenshot](https://github.com/brandon-stewart-rgb/el-weather/assets/my_ss.png) 
+![Example screenshot](assets/my_ss.png) 
 
