@@ -66,21 +66,14 @@ button.addEventListener('click',function(e){
       var now = (currentTime);
 
       function toJSDate (dateTime) {
-
         var dateTime = dateTime.split(" ");//dateTime[0] = date, dateTime[1] = time
-
         var date = dateTime[0].split("-");
         var time = dateTime[1].split(":");
-
         //(year, month, day, hours, minutes, seconds, milliseconds)
-        return new Date(date[0], date[1], date[2], time[0], time[1], time[2], 0);
-            
+        return new Date(date[0], date[1], date[2], time[0], time[1]);    
         }
-
         var jsDate = toJSDate(now);
-
         var dd = jsDate.toLocaleDateString() + " | " + jsDate.toLocaleTimeString();
-
         dateTime.innerHTML = "Current date/time is:  <strong>" +dd+ "</strong>.";
 
     }); 
