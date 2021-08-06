@@ -13,7 +13,9 @@ let locationIcon = document.querySelector('.weather-icon');
 var fiveDayCity = document.querySelector('#five-day-city');
 var fiveDayIcon = document.querySelector('.five-day-icon')
 var previousSearch = document.querySelector(".buttons");
-const clearButton = document.querySelector(".clear-btn")
+var dateTime = document.querySelector('#date-time');
+const clearButton = document.querySelector(".clear-btn");
+
 
 button.addEventListener('click',function(e){ 
     e.preventDefault();
@@ -54,14 +56,46 @@ button.addEventListener('click',function(e){
   
     });
 
+    fetch('https://timezone.abstractapi.com/v1/current_time/?api_key=6630e72c87934bdbbafad365a500bd14&location=' +inputValue.value+'')
+    .then(responses => responses.json())
+    .then(data=> {
+      console.log(data)
+      console.log(inputValue.value)
+
+      var currentTime = data['datetime']
+      var now = (currentTime);
+
+      function toJSDate (dateTime) {
+
+        var dateTime = dateTime.split(" ");//dateTime[0] = date, dateTime[1] = time
+
+        var date = dateTime[0].split("-");
+        var time = dateTime[1].split(":");
+
+        //(year, month, day, hours, minutes, seconds, milliseconds)
+        return new Date(date[0], date[1], date[2], time[0], time[1], time[2], 0);
+            
+        }
+
+        var jsDate = toJSDate(now);
+
+        var dd = jsDate.toLocaleDateString() + " | " + jsDate.toLocaleTimeString();
+
+        dateTime.innerHTML = "Current date/time is:  <strong>" +dd+ "</strong>.";
+
+    }); 
+
         
-    // get latitude and longitude from current input value...
-   fetch('https://api.positionstack.com/v1/forward?access_key=8b6705bd3db1ed3c15005b1f93926e8e&query='+inputValue.value+'')
-   
-   .then(responses => responses.json())
-   .then(data=> {
-      var latitudeValue = data['data']['0']['latitude']
-      var longitudeValue = data['data']['0']['longitude']
+      // get latitude and longitude from current input value...
+    fetch('https://api.positionstack.com/v1/forward?access_key=8b6705bd3db1ed3c15005b1f93926e8e&query='+inputValue.value+'')
+    
+    .then(responses => responses.json())
+    .then(data=> {
+        var latitudeValue = data['data']['0']['latitude']
+        var longitudeValue = data['data']['0']['longitude']
+
+    
+    
       
        fetch ('https://api.openweathermap.org/data/2.5/onecall?lat=' +latitudeValue+ '&lon=' +longitudeValue+ '&units=imperial&exclude=hourly,minutely,alerts&appid=e663d07dec9b8f87ac31936c9b8c2907')
 
