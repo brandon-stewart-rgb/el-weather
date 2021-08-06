@@ -15,7 +15,7 @@ var fiveDayIcon = document.querySelector('.five-day-icon')
 var previousSearch = document.querySelector(".buttons");
 const clearButton = document.querySelector(".clear-btn")
 
-button.addEventListener('click',function(e){
+button.addEventListener('click',function(e){ 
     e.preventDefault();
     // ignore input if empty
     if(inputValue.value.length < 1) return;
