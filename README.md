@@ -22,12 +22,12 @@ A simple app to search weather by city using Open Weather API for weather, Posit
         * GoFullPage
         * Visual Studio Code 
         * Bulma
-        * Google Fonts
+        * Google Fonts 
 
         
  
 
 
 #### Screenshot
-![Example screenshot](https://github.com/brandon-stewart-rgb/el-weather/assets/screenshot.png) 
+![Example screenshot](https://github.com/brandon-stewart-rgb/el-weather/assets/my_screenshot.png) 
 
