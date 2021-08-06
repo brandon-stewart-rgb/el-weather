@@ -154,7 +154,7 @@ button.addEventListener('click',function(e){
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     } 
-    sleep(2000).then(() => { submitForm(); });        
+    sleep(2000).then(() => { submitForm(); });         
 });
 
 // function to clear seven day div to keep from stacking multiple forecasts on top of each other
