@@ -13,6 +13,7 @@ let locationIcon = document.querySelector('.weather-icon');
 var fiveDayCity = document.querySelector('#five-day-city');
 var fiveDayIcon = document.querySelector('.five-day-icon')
 var previousSearch = document.querySelector(".buttons");
+const clearButton = document.querySelector(".clear-btn")
 
 button.addEventListener('click',function(e){
     e.preventDefault();
@@ -172,7 +173,7 @@ input.addEventListener("keyup", function(event) {
 };
 
 // clear the local storage localStorage.clear(); via button to clear the calendar and reload the page location.reload()
-$(".clear-btn").on("click", function(){
+clearButton.addEventListener('click',function(){
   localStorage.clear();
   location.reload();
 });
