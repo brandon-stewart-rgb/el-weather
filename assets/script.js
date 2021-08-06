@@ -54,8 +54,8 @@ button.addEventListener('click',function(e){
     });
 
         
-    // get latitude and longitude from current input value...unable to publish as it does not use HTTPS
-   fetch('http://api.positionstack.com/v1/forward?access_key=bd7525d294dee49bf6525fc33d3c9013&query='+inputValue.value+'')
+    // get latitude and longitude from current input value...
+   fetch('https://api.positionstack.com/v1/forward?access_key=8b6705bd3db1ed3c15005b1f93926e8e&query='+inputValue.value+'')
    
    .then(responses => responses.json())
    .then(data=> {
