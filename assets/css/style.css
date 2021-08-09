@@ -21,3 +21,29 @@ body .is-horizontal-center {
 body p strong {
     color: #5c5b5b !important;
 } 
+
+body span.uvi {
+    border-radius: 5px;
+    padding: 0 30px;
+    color: #fff ;
+    font-weight: bold;
+    border: solid 1px #888;
+   
+} 
+
+.green {
+    background-color: rgb(62, 167, 45) !important;
+}
+.yellow {
+    background-color: yellow !important;
+    color: #000 !important;
+}
+.orange {
+    background-color: rgb(248, 137, 10) !important;
+}
+.red {
+    background-color: rgb(255, 23, 7) !important;
+}	
+.violet {
+    background-color: rgb(143, 7, 255) !important;
+}	

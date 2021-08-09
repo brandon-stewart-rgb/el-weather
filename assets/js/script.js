@@ -14,7 +14,11 @@ var fiveDayCity = document.querySelector('#five-day-city');
 var fiveDayIcon = document.querySelector('.five-day-icon')
 var previousSearch = document.querySelector(".buttons");
 var dateTime = document.querySelector('#date-time');
+var humidity = document.querySelector('#humidity');
+var uv = document.querySelector('#u-v');
 const clearButton = document.querySelector(".clear-btn");
+
+var uvClass = document.querySelector('.uvi')
 
 
 button.addEventListener('click',function(e){ 
@@ -26,23 +30,25 @@ button.addEventListener('click',function(e){
    
     .then(response => response.json())
     .then(data=> {
+      
         var nameValue = data['name']
         var tempValue = Math.round(data['main']['temp'])
-        var feelsLikeValue = Math.round(data['main']['feels_like'])
         var descValue = data['weather']['0']['description'] 
         var tempMaxValue = Math.round(data['main']['temp_max'])
         var tempMinValue = Math.round(data['main']['temp_min'])
         var windSpeedValue = Math.round(data['wind']['speed'])
+        var humidityValue = data['main']['humidity']
+        
         const {icon} = data.weather[0];
-        locationIcon.innerHTML = `<img src="./assets/icons/${icon}.png">`
+        locationIcon.innerHTML = `<img src="./assets/img/icons/${icon}.png">`
         cityName.innerHTML = nameValue;
         desc.innerHTML = "Current conditions:  <strong>" +descValue+ "</strong>.";
         temp.innerHTML = "Current Temperature: <strong>" +tempValue+ "</strong><sup>°F</sup>";
-        feelsLike.innerHTML = "Feels Like: <strong>" +feelsLikeValue+ "</strong><sup>°F</sup>";
         tempMax.innerHTML = "Max Temp: <strong>" +tempMaxValue+ "</strong><sup>°F</sup>";
         tempMin.innerHTML = "Min Temp: <strong>" +tempMinValue+ "</strong><sup>°F</sup>";
         windSpeed.innerHTML = "Wind Speed: <strong>" +windSpeedValue+ "mph</strong>"; 
-
+        humidity.innerHTML =  "Humidity: <strong>" +humidityValue+ "%</strong>"; 
+       
         // using RegEx to convert first letter of each word to uppercase
         var searchValue = inputValue.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
 
@@ -59,9 +65,7 @@ button.addEventListener('click',function(e){
     fetch('https://timezone.abstractapi.com/v1/current_time/?api_key=6630e72c87934bdbbafad365a500bd14&location=' +inputValue.value+'')
     .then(responses => responses.json())
     .then(data=> {
-      console.log(data)
-      console.log(inputValue.value)
-
+      
       var currentTime = data['datetime']
       var now = (currentTime);
 
@@ -88,13 +92,15 @@ button.addEventListener('click',function(e){
         var longitudeValue = data['data']['0']['longitude']
 
     
-    
       
        fetch ('https://api.openweathermap.org/data/2.5/onecall?lat=' +latitudeValue+ '&lon=' +longitudeValue+ '&units=imperial&exclude=hourly,minutely,alerts&appid=e663d07dec9b8f87ac31936c9b8c2907')
 
        .then(responses => responses.json())
        .then(data=> {
-
+        
+        var uvValue = Math.round(data['current']['uvi'])
+        uv.innerHTML = uvValue
+      
         var forecastEl = document.getElementsByClassName("forecast");
         // empty string
         var forecastDay = "";
@@ -109,21 +115,63 @@ button.addEventListener('click',function(e){
               });
               var icon = value.weather[0].icon;
               var temp = value.temp.day.toFixed(0);
+              var humid = value.humidity;
 
               forecastDay = 
               `<div class="forecast-day column has-text-centered ">
                   <div class="is-flex is-horizontal-center is-1 box ">
                     <figure class="image is-48x48">
-                        <div class="five-day-icon"><img src="./assets/icons/${icon}.png" /></div>
+                        <div class="five-day-icon"><img src="./assets/img/icons/${icon}.png" /></div>
                     </figure>
                   </div>
                   <div class="is-size-6">${temp}<sup>°F</sup></div>
+                  <div class="is-size-6">Humidity: ${humid}%</div>
                   <p><strong >${dayName}</strong></p>
               </div>`;    
             // inserts nodes into DOM tree at specified position
             forecastEl[0].insertAdjacentHTML('beforeend', forecastDay);    
             }
         });
+
+        const ultraV = document.querySelector('.uvi')
+        // add/remove color classes to UV Index
+        if (uvValue <= 3 ) {
+           ultraV.classList.add('green'),
+           ultraV.classList.remove('red'),
+           ultraV.classList.remove('yellow'),
+           ultraV.classList.remove('orange'),
+           ultraV.classList.remove('violet')
+        } 
+        else if (uvValue <= 5 ) {
+          ultraV.classList.add('yellow'),
+          ultraV.classList.remove('green'),
+          ultraV.classList.remove('orange'),
+          ultraV.classList.remove('red'),
+          ultraV.classList.remove('violet')
+        }
+        else if (uvValue <= 7 ) {
+          ultraV.classList.add('orange'), 
+          ultraV.classList.remove('yellow'),
+          ultraV.classList.remove('red'),
+          ultraV.classList.remove('green'),
+          ultraV.classList.remove('violet')
+        }
+        else if (uvValue <= 10 ) {
+          ultraV.classList.add('red'),
+          ultraV.classList.remove('orange'),
+          ultraV.classList.remove('yellow'),
+          ultraV.classList.remove('green'),
+          ultraV.classList.remove('violet')
+        }
+
+        else if (uvValue < 11 ) {
+          ultraV.classList.add('violet'),
+          ultraV.classList.remove('orange'),
+          ultraV.classList.remove('yellow'),
+          ultraV.classList.remove('green'),
+          ultraV.classList.remove('red')
+        }
+        
 
         // using RegEx to convert first letter of each word to uppercase
         var fiveDayCityValue = inputValue.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
@@ -139,16 +187,18 @@ button.addEventListener('click',function(e){
         const clearButton = document.querySelector('.clear-btn');
           if (clearButton.classList.contains("is-hidden")) {
           clearButton.classList.remove("is-hidden");
-        }
-           
+        }    
+       
+         
      }); 
 
     // pause for 2.2 seconds then clear search input. bam.
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     } 
-    sleep(2000).then(() => { submitForm(); });         
+    sleep(500).then(() => { submitForm(); });         
 });
+
 
 // function to clear seven day div to keep from stacking multiple forecasts on top of each other
 function clearBox(sevenDay) {

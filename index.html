@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
       
   <body>
     <div class="notification is-info" style="border-radius: 0; margin-bottom: 0;">
@@ -64,7 +64,7 @@
                         <div class="media">
                           <div class="media-left">
                             <figure class="image is-48x48">
-                              <div class="weather-icon"><img src="./assets/icons/unknown.png" /></div>
+                              <div class="weather-icon"><img src="./assets/img/icons/unknown.png" /></div>
                             </figure>
                           </div>
                           <div class="content">
@@ -76,10 +76,26 @@
                       <div class="content">
                         <p class="is-large mb-0" id="date-time"></p>
                         <p class="is-large mb-0" id="temp"></p>
-                        <p class="is-large mb-0"" id="feels-like"></p>
-                        <p class="is-large mb-0"" id="max-temp"></p>
-                        <p class="is-large mb-0"" id="min-temp"></p>
-                        <p class="is-large mb-0"" id="wind-speed"></p>
+                        <p class="is-large mb-0" id="max-temp"></p>
+                        <p class="is-large mb-0" id="min-temp"></p>
+                        <p class="is-large mb-0" id="wind-speed"></p>
+                        <p class="is-large mb-0" id="humidity"></p>
+                        <p class="is-large mb-0" >UV index:  <span class="uvi" id="u-v"></span></p>
+                        
+                        <div class="columns mt-3 mb-0 is-hidden-tablet-only">
+                          <div class="column"><p class="is-large has-text-centered">"Low"</p></div>
+                          <div class="column"><p class="is-large has-text-centered">"Moderate"</p></div>
+                          <div class="column"><p class="is-large has-text-centered">"High"</p></div>
+                          <div class="column"><p class="is-large has-text-centered">"Very High"</p></div>
+                          <div class="column"><p class="is-large has-text-centered">"Extreme"</p></div>
+                        </div>
+                        <div class="columns mt-0 is-hidden-tablet-only">
+                          <div class="column green"></div>
+                          <div class="column yellow"></div>
+                          <div class="column orange"></div>
+                          <div class="column red"></div>
+                          <div class="column violet"></div>
+                        </div>
                                          
                     </div>
                          
@@ -109,7 +125,7 @@
     <!-- jQuery first, then Popper.js-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="./assets/script.js"></script>
+    <script src="./assets/js/script.js"></script>
   
   </body>
 </html>
