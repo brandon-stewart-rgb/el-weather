@@ -41,5 +41,5 @@ A simple app to search weather by city using Open Weather API for weather, Posit
 
 
 #### Screenshot
-![Example screenshot](assets/img/my_ss.png) 
+![Example screenshot](assets/img/my_ss.png)  
 
