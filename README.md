@@ -30,6 +30,7 @@ A simple app to search weather by city using Open Weather API for weather, Posit
        * [_Open_Weather_API_](https://openweathermap.org/api)
        * [_Abstract_API_](https://www.abstractapi.com/time-date-timezone-api)
        * [_PositionStack_API_](https://positionstack.com)
+       * [_Google_Fonts_API_](https://fonts.google.com/)
        
        
 
