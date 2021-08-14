@@ -1,4 +1,4 @@
-# weather search
+<h1 align="center">Weather Search/h1>
 
 A simple app to search weather by city using Open Weather API for weather, Position Stack for obtaining latitude and longitude from user city-search input.
 
