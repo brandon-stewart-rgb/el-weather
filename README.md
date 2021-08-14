@@ -2,15 +2,12 @@
 
 A simple app to search weather by city using Open Weather API for weather, Position Stack for obtaining latitude and longitude from user city-search input.
 
-
 ## Demo
 
 > Live site demo: [_Weather Demo_](https://brandon-stewart-rgb.github.io/el-weather/). 
 
 
-
 ### Technologies Used
-
 
         * HTML
         * Javascript
@@ -22,7 +19,6 @@ A simple app to search weather by city using Open Weather API for weather, Posit
         * GoFullPage
         * Visual Studio Code 
         * Bulma
-        * Google Fonts 
 
 ### API's Used
 
@@ -33,7 +29,6 @@ A simple app to search weather by city using Open Weather API for weather, Posit
        * [_Google_Fonts_API_](https://fonts.google.com/)
        
        
-
 #### License      
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -42,5 +37,9 @@ A simple app to search weather by city using Open Weather API for weather, Posit
 
 
 #### Screenshot
-![Example screenshot](assets/img/my_ss.png)  
+![Example screenshot](assets/img/newSS.png)  
+
+#### Questions 
+Contact: Brandon Stewart
+[My Github account](https://github.com/brandon-stewart-rgb)
 
