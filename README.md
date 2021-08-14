@@ -22,11 +22,10 @@ A simple app to search weather by city using Open Weather API for weather, Posit
 
 ### API's Used
 
-
-       * [_Open_Weather_API_](https://openweathermap.org/api)
-       * [_Abstract_API_](https://www.abstractapi.com/time-date-timezone-api)
-       * [_PositionStack_API_](https://positionstack.com)
-       * [_Google_Fonts_API_](https://fonts.google.com/)
+[Open Weather API](https://openweathermap.org/api)<br/>
+[Abstract API](https://www.abstractapi.com/time-date-timezone-api)<br/>
+[PositionStack API](https://positionstack.com)<br/>
+[Google Fonts API](https://fonts.google.com/)
        
        
 #### License      
@@ -40,6 +39,5 @@ A simple app to search weather by city using Open Weather API for weather, Posit
 ![Example screenshot](assets/img/newSS.png)  
 
 #### Questions 
-Contact: Brandon Stewart
+Contact: *Brandon Stewart* <br/>
 [My Github account](https://github.com/brandon-stewart-rgb)
-
